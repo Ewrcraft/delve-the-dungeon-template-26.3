@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"com.delvethedungeon.client.DelveTheDungeonClient"
+		],
+		"fabric-datagen": [
+			"com.delvethedungeon.client.DelveTheDungeonDataGenerator"
 		]
 	},
 	"mixins": [
