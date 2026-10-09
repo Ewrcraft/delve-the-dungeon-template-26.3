@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "delve-the-dungeon:block/uncertain_someone"
+    },
+    "facing=south": {
+      "model": "delve-the-dungeon:block/uncertain_someone",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "delve-the-dungeon:block/uncertain_someone",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "delve-the-dungeon:block/uncertain_someone",
+      "y": 90
+    }
+  }
+}
