@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 public class ModBlockItemIds {
 
     public static final BlockItemId CERTAIN_SOMEONE = create("certain_someone");
+    public static final BlockItemId CERTAIN_SOMEONE_PART2 = create("certain_someone_part2");
 
     private static BlockItemId create(String name) {
         Identifier id = DelveTheDungeon.id(name);

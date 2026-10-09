@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -18,6 +19,11 @@ public class ModBlocks {
             ModBlockItemIds.CERTAIN_SOMEONE,
             Block::new,
             BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
+    );
+    public static final Block CERTAIN_SOMEONE_PART2 = register(
+            ModBlockItemIds.CERTAIN_SOMEONE_PART2,
+            PlushieBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.CINNABAR)
     );
 
     private static Block register(ResourceKey<Block> id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties) {
