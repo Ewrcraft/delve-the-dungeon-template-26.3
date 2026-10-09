@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "delve-the-dungeon:item/sac_dagger"
+  }
+}
