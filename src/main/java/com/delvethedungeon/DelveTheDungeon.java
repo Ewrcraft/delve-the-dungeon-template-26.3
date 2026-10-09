@@ -22,6 +22,7 @@ public class DelveTheDungeon implements ModInitializer {
 		// Proceed with mild caution.
 
 		ModItems.initialize();
+		ModBlocks.initialize();
 
 		LOGGER.info("Hello Fabric world!");
 	}
