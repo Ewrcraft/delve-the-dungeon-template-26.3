@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=north,existence=true": {
+      "model": "delve-the-dungeon:block/uncertain_block"
+    },
+    "facing=south,existence=true": {
+      "model": "delve-the-dungeon:block/uncertain_block",
+      "y": 180
+    },
+    "facing=west,existence=true": {
+      "model": "delve-the-dungeon:block/uncertain_block",
+      "y": 270
+    },
+    "facing=east,existence=true": {
+      "model": "delve-the-dungeon:block/uncertain_block",
+      "y": 90
+    },
+    "facing=north,existence=false": {
+      "model": "delve-the-dungeon:block/veryuncertain_block"
+    },
+    "facing=south,existence=false": {
+      "model": "delve-the-dungeon:block/veryuncertain_block",
+      "y": 180
+    },
+    "facing=west,existence=false": {
+      "model": "delve-the-dungeon:block/veryuncertain_block",
+      "y": 270
+    },
+    "facing=east,existence=false": {
+      "model": "delve-the-dungeon:block/veryuncertain_block",
+      "y": 90
+    }
+
+
+  }
+}

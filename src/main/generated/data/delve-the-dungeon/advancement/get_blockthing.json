@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:adventure/root",
+  "criteria": {
+    "got_blockthing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "delve-the-dungeon:certain_someone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": "The texture could have been worse.",
+    "icon": {
+      "id": "delve-the-dungeon:certain_someone"
+    },
+    "title": "Who might you be?"
+  },
+  "requirements": [
+    [
+      "got_blockthing"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

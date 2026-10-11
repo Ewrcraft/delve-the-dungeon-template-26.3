@@ -3,7 +3,8 @@
   "credit": "Made with Blockbench",
   "texture_size": [64, 64],
   "textures": {
-    "0": "delve-the-dungeon:block/uncertain_someone"
+    "0": "delve-the-dungeon:block/uncertain_someone",
+    "particle": "delve-the-dungeon:block/uncertain_someone"
   },
   "elements": [
     {

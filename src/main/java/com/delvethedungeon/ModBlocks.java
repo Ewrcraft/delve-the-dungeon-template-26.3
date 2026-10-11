@@ -35,12 +35,19 @@ public class ModBlocks {
             ModBlockItemIds.UNCERTAIN_SOMEONE,
             PlushieBlock::new,
             BlockBehaviour.Properties.of().sound(SoundType.CINNABAR),
-            ModComponents.COMPONENT_WITH_TOOLTIP
+            ModComponents.COMPONENT_WITH_TOOLTIP,
+            new ComponentWithTooltip("item.example-mod.counter.info")
     );
     public static final Block DEFINITIVELY_SOMEONE = register(
             ModBlockItemIds.DEFINITIVELY_SOMEONE,
             PlushieBlock::new,
             BlockBehaviour.Properties.of().sound(SoundType.CINNABAR)
+    );
+
+    public static final Block UNCERTAIN_BLOCK = register(
+            ModBlockItemIds.UNCERTAIN_BLOCK,
+            ModDissapearingBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
     );
 
     private static Block register(ResourceKey<Block> id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties) {
@@ -61,12 +68,12 @@ public class ModBlocks {
         return block;
     }
 
-    private static Block registerWithTooltip(BlockItemId id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties, DataComponentType component) {
+    private static Block registerWithTooltip(BlockItemId id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties, DataComponentType component, Object value) {
         // Create the block instance
         Block block = register(id.block(), blockFactory, properties);
 
         // Create the block item instance
-        BlockItem blockItem = new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(id.item()).component(component, 0));
+        BlockItem blockItem = new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(id.item()).component(component, value));
         Registry.register(BuiltInRegistries.ITEM, id.item(), blockItem);
 
         return block;

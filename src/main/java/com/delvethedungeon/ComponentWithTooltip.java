@@ -14,20 +14,20 @@ import net.minecraft.world.item.component.TooltipProvider;
 
 import java.util.function.Consumer;
 
-public record ComponentWithTooltip(int clickCount) implements TooltipProvider {
+public record ComponentWithTooltip(String tooltipText) implements TooltipProvider {
     @Override
     public void addToTooltip(Item.TooltipContext tooltip, Consumer<Component> textConsumer, TooltipFlag type, DataComponentGetter components) {
-        textConsumer.accept(Component.translatable("item.example-mod.counter.info", this.clickCount).withStyle(ChatFormatting.AQUA));
+        textConsumer.accept(Component.translatable(tooltipText, 0).withStyle(ChatFormatting.AQUA));
     }
 
     public static final Codec<ComponentWithTooltip> CODEC = RecordCodecBuilder.create(builder -> {
         return builder.group(
-                Codec.INT.fieldOf("temperature").forGetter(ComponentWithTooltip::clickCount)
+                Codec.STRING.fieldOf("textVariable").forGetter(ComponentWithTooltip::tooltipText)
         ).apply(builder, ComponentWithTooltip::new);
     });
 
     public static final StreamCodec<FriendlyByteBuf, ComponentWithTooltip> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT, ComponentWithTooltip::clickCount,
+            ByteBufCodecs.STRING_UTF8, ComponentWithTooltip::tooltipText,
             ComponentWithTooltip::new
     );
 }
