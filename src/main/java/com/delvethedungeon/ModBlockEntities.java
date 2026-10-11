@@ -14,8 +14,8 @@ public class ModBlockEntities {
     public static final BlockEntityType<PlushieBlockEntity> CERTAIN_SOMEONE_PART2_BLOCK_ENTITY =
             register("counter", PlushieBlockEntity::new, ModBlocks.CERTAIN_SOMEONE_PART2, ModBlocks.UNCERTAIN_SOMEONE, ModBlocks.DEFINITIVELY_SOMEONE);
 
-    public static final BlockEntityType<PlushieBlockEntity> UNCERTAIN_BLOCK_ENTITY =
-            register("countercool", PlushieBlockEntity::new, ModBlocks.UNCERTAIN_BLOCK);
+    public static final BlockEntityType<ModDissapearingBlockEntity> UNCERTAIN_BLOCK_ENTITY =
+            register("countercool", ModDissapearingBlockEntity::new, ModBlocks.UNCERTAIN_BLOCK);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(
             String name,

@@ -13,7 +13,6 @@ repositories {
 
 loom {
 	splitEnvironmentSourceSets()
-
 	mods {
 		"delve-the-dungeon" {
 			sourceSet sourceSets.main

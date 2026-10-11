@@ -65,17 +65,12 @@ public class ModDissapearingBlock extends BaseEntityBlock {
         if (!context.isPlacement() && context instanceof EntityCollisionContext entityCollisionContext) {
             Entity entity = entityCollisionContext.getEntity();
             if (entity != null) {
-                if (entity.fallDistance > (double)2.5F) {
-                    return FALLING_COLLISION_SHAPE;
-                }
-
                 boolean exists = state.getValue(EXISTENCE);
                 if (exists) {
                     return super.getCollisionShape(state, level, pos, context);
                 }
             }
         }
-
         return Shapes.empty();
     }
 
