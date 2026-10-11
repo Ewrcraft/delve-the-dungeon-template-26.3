@@ -26,22 +26,26 @@ public class ModBlocks {
             Block::new,
             BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
     );
-    public static final Block CERTAIN_SOMEONE_PART2 = register(
+    public static final Block CERTAIN_SOMEONE_PART2 = registerWithComponent(
             ModBlockItemIds.CERTAIN_SOMEONE_PART2,
             PlushieBlock::new,
-            BlockBehaviour.Properties.of().sound(SoundType.CINNABAR)
+            BlockBehaviour.Properties.of().sound(SoundType.CINNABAR),
+            ModComponents.COMPONENT_WITH_TOOLTIP,
+            new ComponentWithTooltip("item.example-mod.counter.info-2", "5")
     );
-    public static final Block UNCERTAIN_SOMEONE = registerWithTooltip(
+    public static final Block UNCERTAIN_SOMEONE = registerWithComponent(
             ModBlockItemIds.UNCERTAIN_SOMEONE,
             PlushieBlock::new,
             BlockBehaviour.Properties.of().sound(SoundType.CINNABAR),
             ModComponents.COMPONENT_WITH_TOOLTIP,
-            new ComponentWithTooltip("item.example-mod.counter.info")
+            new ComponentWithTooltip("item.example-mod.counter.info", "bo")
     );
-    public static final Block DEFINITIVELY_SOMEONE = register(
+    public static final Block DEFINITIVELY_SOMEONE = registerWithComponent(
             ModBlockItemIds.DEFINITIVELY_SOMEONE,
             PlushieBlock::new,
-            BlockBehaviour.Properties.of().sound(SoundType.CINNABAR)
+            BlockBehaviour.Properties.of().sound(SoundType.CINNABAR),
+            ModComponents.COMPONENT_WITH_TOOLTIP,
+            new ComponentWithTooltip("item.example-mod.counter.info-3", "f")
     );
 
     public static final Block UNCERTAIN_BLOCK = register(
@@ -68,7 +72,7 @@ public class ModBlocks {
         return block;
     }
 
-    private static Block registerWithTooltip(BlockItemId id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties, DataComponentType component, Object value) {
+    private static Block registerWithComponent(BlockItemId id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties, DataComponentType component, Object value) {
         // Create the block instance
         Block block = register(id.block(), blockFactory, properties);
 
