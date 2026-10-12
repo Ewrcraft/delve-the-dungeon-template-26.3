@@ -24,9 +24,9 @@ public class CreativeModTab {
             .title(Component.translatable("DelveIntoCreative.delve_into_creative"))
             .displayItems((params, output) -> {
                 output.accept(ModItems.SAC_DAGGER);
-
                 output.accept(ModBlocks.CHEESE);
                 output.accept(ModBlocks.CERTAIN_SOMEONE);
+                output.accept(ModBlocks.UNCERTAIN_BLOCK);
                 output.accept(ModBlocks.CERTAIN_SOMEONE_PART2);
                 output.accept(ModBlocks.DEFINITIVELY_SOMEONE);
                 output.accept(ModBlocks.UNCERTAIN_SOMEONE);
