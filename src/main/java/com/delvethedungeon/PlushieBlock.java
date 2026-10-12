@@ -83,7 +83,7 @@ public class PlushieBlock extends BaseEntityBlock {
     }
 
     static {
-        SHAPE = Block.box((double)1.0F, (double)1.0F, (double)1.0F, (double)15.0F, (double)15.0F, (double)15.0F);
+        SHAPE = Block.box((double)1.0F, (double)1.0F, (double)1.0F, (double)15.0F, (double)18.0F, (double)15.0F);
         FACING = HorizontalDirectionalBlock.FACING;
     }
 
