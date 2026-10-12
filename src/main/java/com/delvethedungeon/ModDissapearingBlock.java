@@ -19,12 +19,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ClipBlockStateContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -44,6 +47,8 @@ public class ModDissapearingBlock extends BaseEntityBlock {
     public static final BooleanProperty EXISTENCE = BooleanProperty.create("existence");
     public static final EnumProperty<Direction> FACING;
     private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box((double)0.0F, (double)0.0F, (double)0.0F, (double)1.0F, (double)0.9F, (double)1.0F);
+
+
     public ModDissapearingBlock(Properties properties) {
         super(properties);
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(FACING, Direction.NORTH).setValue(EXISTENCE, true));
@@ -104,54 +109,72 @@ public class ModDissapearingBlock extends BaseEntityBlock {
     }
 
 
+    public static boolean IsBlock(BlockState blockState) {
+        return blockState.getBlock() == ModBlocks.UNCERTAIN_BLOCK;
+    }
 
-        public boolean hasLineOfSightOfBlock(final Entity target, final ClipContext.Block blockCollidingContext, final ClipContext.Fluid fluidCollidingContext, BlockPos pos) {
-            if (target.level() != target.level()) {
+    public boolean hasLineOfSightOfBlock(final Entity target, final ClipContext.Block blockCollidingContext, final ClipContext.Fluid fluidCollidingContext, BlockPos pos) {
+        if (target.level() != target.level()) {
+            return false;
+        } else {
+            Vec3 from = new Vec3(target.getX(), target.getEyeY(), target.getZ());
+            Vec3 to = new Vec3(pos.getX(), pos.getY(), pos.getZ());
+            if (to.distanceTo(from) > (double)128.0F) {
                 return false;
             } else {
-                Vec3 from = new Vec3(target.getX(), target.getEyeY(), target.getZ());
-                Vec3 to = new Vec3(pos.getX(), pos.getY(), pos.getZ());
-                if (to.distanceTo(from) > (double)128.0F) {
-                    return false;
-                } else {
-                    Vec3 directionToBlock = genVecEntityToBlock(target, pos);
-                    Vec3 currentCameraDirection = target.getHeadLookAngle();
-                    System.out.println(directionToBlock);
-                    System.out.println(currentCameraDirection);
-                    System.out.println(directionToBlock.distanceTo(currentCameraDirection));
-                    if (directionToBlock.distanceTo(currentCameraDirection) < 0.3) {
-
-                        return target.level().clip(new ClipContext(from, to, blockCollidingContext, fluidCollidingContext, target)).getType() == net.minecraft.world.phys.HitResult.Type.MISS;
-                    }
-                    return false;
+                Vec3 directionToBlock = genVecEntityToBlock(target, pos);
+                Vec3 currentCameraDirection = target.getHeadLookAngle();
+                System.out.println(directionToBlock);
+                System.out.println(currentCameraDirection);
+                System.out.println(directionToBlock.distanceTo(currentCameraDirection));
+                if (directionToBlock.distanceTo(currentCameraDirection) < 1) {
+                        return target.level().isBlockInLine(new ClipBlockStateContext(from, to, ModDissapearingBlock::IsBlock)).getType() == net.minecraft.world.phys.HitResult.Type.MISS;
+//                          return target.level().clip(new ClipContext(from, to, blockCollidingContext, fluidCollidingContext, target)).getType() == net.minecraft.world.phys.HitResult.Type.MISS;
                 }
-            }
-        }
-
-        public boolean hasLineOfSightOfBlock(Level level, BlockPos pos) {
-            Player target = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10.0, false);
-            if (target != null) {
-                return this.hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
-            } else {
                 return false;
             }
+        }
+    }
 
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, ModBlockEntities.UNCERTAIN_BLOCK_ENTITY, ModDissapearingBlock::tick);
+    }
+
+    public static void tick(Level level, BlockPos blockPos, BlockState blockState, ModDissapearingBlockEntity entity) {
+        entity.ticksSinceLast += 1;
+        if (entity.ticksSinceLast < 10) {
+            hasLineOfSightOfBlock(level, blockPos);
+            entity.ticksSinceLast = 0;
+        }
+    }
+
+    public boolean hasLineOfSightOfBlock(Level level, BlockPos pos) {
+        Player target = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10.0, false);
+        if (target != null) {
+            return this.hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
+        } else {
+            return false;
         }
 
-        public static Vec3 genVecEntityToBlock(Entity a, BlockPos b) {
-            double dX = a.getX() - b.getX()+0.5;
-            double dY = a.getY() - b.getY()+0.5;
-            double dZ = a.getZ() - b.getZ()+0.5;
-            double yaw = Math.atan2(dZ, dX);
-            double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-            double x = Math.sin(pitch) * Math.cos(yaw);
-            double y = Math.sin(pitch) * Math.sin(yaw);
-            double z = Math.cos(pitch);
+    }
 
-            Vec3 vector = new Vec3(x, z, y);
-            vector = vector.normalize();
-            return vector;
-        }
+    public static Vec3 genVecEntityToBlock(Entity a, BlockPos b) {
+        double dX = a.getX() - b.getX()+0.5;
+        double dY = a.getY() - b.getY()+0.5;
+        double dZ = a.getZ() - b.getZ()+0.5;
+        double yaw = Math.atan2(dZ, dX);
+        double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+        double x = Math.sin(pitch) * Math.cos(yaw);
+        double y = Math.sin(pitch) * Math.sin(yaw);
+        double z = Math.cos(pitch);
+
+        Vec3 vector = new Vec3(x, z, y);
+        vector = vector.normalize();
+        return vector;
+    }
 
 
 
