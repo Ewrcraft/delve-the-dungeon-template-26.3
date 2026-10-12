@@ -113,7 +113,7 @@ public class ModDissapearingBlock extends BaseEntityBlock {
         return blockState.getBlock() == ModBlocks.UNCERTAIN_BLOCK;
     }
 
-    public boolean hasLineOfSightOfBlock(final Entity target, final ClipContext.Block blockCollidingContext, final ClipContext.Fluid fluidCollidingContext, BlockPos pos) {
+    public static boolean hasLineOfSightOfBlock(final Entity target, final ClipContext.Block blockCollidingContext, final ClipContext.Fluid fluidCollidingContext, BlockPos pos) {
         if (target.level() != target.level()) {
             return false;
         } else {
@@ -151,10 +151,10 @@ public class ModDissapearingBlock extends BaseEntityBlock {
         }
     }
 
-    public boolean hasLineOfSightOfBlock(Level level, BlockPos pos) {
+    public static boolean hasLineOfSightOfBlock(Level level, BlockPos pos) {
         Player target = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10.0, false);
         if (target != null) {
-            return this.hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
+            return hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
         } else {
             return false;
         }
