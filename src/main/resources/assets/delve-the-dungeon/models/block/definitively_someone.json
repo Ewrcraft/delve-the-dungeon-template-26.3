@@ -4,6 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "delve-the-dungeon:block/definitively_someone",
+		"particle": "delve-the-dungeon:block/definitively_someone",
 		"3": "delve-the-dungeon:block/definitively_someones_hat"
 	},
 	"elements": [
