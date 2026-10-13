@@ -100,14 +100,11 @@ public class ModDissapearingBlock extends BaseEntityBlock {
         } else {
             Vec3 from = new Vec3(target.getX(), target.getEyeY(), target.getZ());
             Vec3 to = new Vec3(pos.getX(), pos.getY(), pos.getZ());
-            if (to.distanceTo(from) > (double)128.0F) {
-                return false;
+            Vec3 directionToBlock = genVecEntityToBlock(target, pos);
+            Vec3 currentCameraDirection = target.getHeadLookAngle();
+            if (directionToBlock.distanceTo(currentCameraDirection) < 1.5) {
+                    return true;
             } else {
-                Vec3 directionToBlock = genVecEntityToBlock(target, pos);
-                Vec3 currentCameraDirection = target.getHeadLookAngle();
-                if (directionToBlock.distanceTo(currentCameraDirection) < 1.5) {
-                        return true;
-                }
                 return false;
             }
         }
@@ -122,7 +119,7 @@ public class ModDissapearingBlock extends BaseEntityBlock {
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, ModDissapearingBlockEntity entity) {
         entity.ticksSinceLast += 1;
-        if (entity.ticksSinceLast < 40) {
+        if (entity.ticksSinceLast < 160) {
             boolean playerSees = hasLineOfSightOfBlock(level, blockPos);
             if (playerSees) {
                 level.setBlockAndUpdate(blockPos, blockState.setValue(EXISTENCE, true));
