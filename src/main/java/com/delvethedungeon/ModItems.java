@@ -5,6 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.block.Block;
@@ -28,6 +29,7 @@ public class ModItems {
     );
 
     public static final Item SAC_DAGGER = register(ModItemIds.SAC_DAGGER, Item::new, new Item.Properties().sword(GUIDITE_TOOL_MATERIAL, 1f, 1f));
+    public static final Item ARROW_GUN = register(ModItemIds.ARROW_GUN, Item::new, new BowItem.Properties().useCooldown(3));
 
     public static Item register(ResourceKey<Item> itemKey, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
         // Create the item instance.

@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 public class ModItemIds {
 
     public static final ResourceKey<Item> SAC_DAGGER = create("sac_dagger");
+    public static final ResourceKey<Item> ARROW_GUN = create("arrow_gun");
 
     public static ResourceKey<Item> create(String name) {
         // Create the item key.

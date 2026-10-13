@@ -7,6 +7,7 @@ import com.sun.jna.platform.unix.X11;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -73,6 +74,14 @@ public class DelveTheDungeon implements ModInitializer {
 			}));
 		});
 
+		UseItemCallback.EVENT.register((player, world, hand) -> {
+			if (player.getInventory().getItem(hand.asEquipmentSlot().getId()).getItem().equals(ModItems.ARROW_GUN)) {
+				ArrowGun.use
+			}
+				return ActionResult.SUCCESS;
+			} else {
+				return ActionResult.PASS;
+			});
 	}
 
 	private static int executeCommandWithArg(CommandContext<CommandSourceStack> context) {
