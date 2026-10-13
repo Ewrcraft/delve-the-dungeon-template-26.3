@@ -16,7 +16,6 @@ import net.minecraft.world.entity.InsideBlockEffectType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipBlockStateContext;
@@ -42,6 +41,10 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class ModDissapearingBlock extends BaseEntityBlock {
     public static final BooleanProperty EXISTENCE = BooleanProperty.create("existence");
@@ -74,7 +77,7 @@ public class ModDissapearingBlock extends BaseEntityBlock {
             Entity entity = entityCollisionContext.getEntity();
             if (entity != null) {
                 boolean exists = state.getValue(EXISTENCE);
-                if (exists || entity instanceof Projectile) {
+                if (exists) {
                     return super.getCollisionShape(state, level, pos, context);
                 }
             }
@@ -84,28 +87,6 @@ public class ModDissapearingBlock extends BaseEntityBlock {
 
     static {
         FACING = HorizontalDirectionalBlock.FACING;
-    }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        if (!player.getAbilities().mayBuild) {
-            return InteractionResult.PASS;
-        } else {
-            boolean exists = state.getValue(EXISTENCE);
-            level.setBlockAndUpdate(pos, state.setValue(EXISTENCE, !exists));
-            level.playSound(player, pos, SoundEvents.COMPARATOR_CLICK, SoundSource.BLOCKS, 1.0F, 1.0F);
-
-            return InteractionResult.SUCCESS;
-        }
-    }
-
-    protected void onProjectileHit(final Level level, final BlockState state, final BlockHitResult blockHit, final Projectile projectile) {
-        BlockPos pos = blockHit.getBlockPos();
-        boolean playerSees = hasLineOfSightOfBlock(level, pos);
-        if (playerSees) {
-            boolean exists = state.getValue(EXISTENCE);
-            level.setBlockAndUpdate(pos, state.setValue(EXISTENCE, !exists));
-        }
     }
 
 
@@ -124,12 +105,8 @@ public class ModDissapearingBlock extends BaseEntityBlock {
             } else {
                 Vec3 directionToBlock = genVecEntityToBlock(target, pos);
                 Vec3 currentCameraDirection = target.getHeadLookAngle();
-                System.out.println(directionToBlock);
-                System.out.println(currentCameraDirection);
-                System.out.println(directionToBlock.distanceTo(currentCameraDirection));
-                if (directionToBlock.distanceTo(currentCameraDirection) < 1) {
-                        return target.level().isBlockInLine(new ClipBlockStateContext(from, to, ModDissapearingBlock::IsBlock)).getType() == net.minecraft.world.phys.HitResult.Type.MISS;
-//                          return target.level().clip(new ClipContext(from, to, blockCollidingContext, fluidCollidingContext, target)).getType() == net.minecraft.world.phys.HitResult.Type.MISS;
+                if (directionToBlock.distanceTo(currentCameraDirection) < 1.5) {
+                        return true;
                 }
                 return false;
             }
@@ -145,26 +122,40 @@ public class ModDissapearingBlock extends BaseEntityBlock {
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, ModDissapearingBlockEntity entity) {
         entity.ticksSinceLast += 1;
-        if (entity.ticksSinceLast < 10) {
+        if (entity.ticksSinceLast < 40) {
+            boolean playerSees = hasLineOfSightOfBlock(level, blockPos);
+            if (playerSees) {
+                level.setBlockAndUpdate(blockPos, blockState.setValue(EXISTENCE, true));
+            } else {
+                level.setBlockAndUpdate(blockPos, blockState.setValue(EXISTENCE, false));
+            }
             hasLineOfSightOfBlock(level, blockPos);
             entity.ticksSinceLast = 0;
         }
     }
 
     public static boolean hasLineOfSightOfBlock(Level level, BlockPos pos) {
-        Player target = level.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 10.0, false);
-        if (target != null) {
-            return hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
-        } else {
-            return false;
+        List<? extends Player> players = level.players();
+        // pos.getX(), pos.getY(), pos.getZ()
+        for (Player target : players) {
+            double dX = Math.abs(target.getX() - pos.getX());
+            double dY = Math.abs(target.getY() - pos.getY());
+            double dZ = Math.abs(target.getZ() - pos.getZ());
+            double dTotal = dX + dY + dZ;
+            if (dTotal < 15)
+            if (target != null) {
+                return hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
+            } else {
+                return false;
+            }
         }
-
+        return false;
     }
 
     public static Vec3 genVecEntityToBlock(Entity a, BlockPos b) {
-        double dX = a.getX() - b.getX()+0.5;
-        double dY = a.getY() - b.getY()+0.5;
-        double dZ = a.getZ() - b.getZ()+0.5;
+        double dX = a.getX() - b.getX()-0.5;
+        double dY = a.getY() - b.getY()+1;
+        double dZ = a.getZ() - b.getZ()-0.5;
         double yaw = Math.atan2(dZ, dX);
         double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
         double x = Math.sin(pitch) * Math.cos(yaw);
