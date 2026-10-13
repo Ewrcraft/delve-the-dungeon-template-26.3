@@ -9,12 +9,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import static com.delvethedungeon.ModBlocks.CERTAIN_SOMEONE;
+import static com.delvethedungeon.block.ModBlocks.CERTAIN_SOMEONE;
 
 public class DelveTheDungeonAdvancementProvider extends FabricAdvancementProvider {
 

@@ -1,4 +1,4 @@
-package com.delvethedungeon;
+package com.delvethedungeon.item;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.server.level.ServerLevel;

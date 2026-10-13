@@ -1,5 +1,6 @@
-package com.delvethedungeon;
+package com.delvethedungeon.item;
 
+import com.delvethedungeon.DelveTheDungeon;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;

@@ -1,7 +1,9 @@
-package com.delvethedungeon;
+package com.delvethedungeon.userinterface;
 
 
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import com.delvethedungeon.DelveTheDungeon;
+import com.delvethedungeon.block.ModBlocks;
+import com.delvethedungeon.item.ModItems;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 
 import net.minecraft.core.Registry;
@@ -10,7 +12,6 @@ import net.minecraft.network.chat.Component;
 
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 
 

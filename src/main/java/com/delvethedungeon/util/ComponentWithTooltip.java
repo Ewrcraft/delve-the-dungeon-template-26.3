@@ -1,4 +1,4 @@
-package com.delvethedungeon;
+package com.delvethedungeon.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

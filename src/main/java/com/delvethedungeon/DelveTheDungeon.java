@@ -1,9 +1,12 @@
 package com.delvethedungeon;
 
-import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.delvethedungeon.block.ModBlockEntities;
+import com.delvethedungeon.block.ModBlocks;
+import com.delvethedungeon.item.ArrowGun;
+import com.delvethedungeon.item.ModItems;
+import com.delvethedungeon.userinterface.CreativeModTab;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import com.sun.jna.platform.unix.X11;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -11,11 +14,8 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.ComponentContents;
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 
-import net.minecraft.util.FormattedCharSequence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,14 +74,13 @@ public class DelveTheDungeon implements ModInitializer {
 			}));
 		});
 
-		UseItemCallback.EVENT.register((player, world, hand) -> {
-			if (player.getInventory().getItem(hand.asEquipmentSlot().getId()).getItem().equals(ModItems.ARROW_GUN)) {
-				ArrowGun.use
-			}
-				return ActionResult.SUCCESS;
-			} else {
-				return ActionResult.PASS;
-			});
+//		UseItemCallback.EVENT.register((player, world, hand) -> {
+//			if (player.getInventory().getItem(hand.asEquipmentSlot().getId()).getItem().equals(ModItems.ARROW_GUN)) {
+//				ArrowGun.use
+//				return ActionResult.SUCCESS;
+//			} else {
+//				return ActionResult.PASS;
+//			});
 	}
 
 	private static int executeCommandWithArg(CommandContext<CommandSourceStack> context) {

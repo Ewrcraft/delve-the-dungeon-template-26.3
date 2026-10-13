@@ -1,5 +1,6 @@
 package com.delvethedungeon;
 
+import com.delvethedungeon.util.ComponentWithTooltip;
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;

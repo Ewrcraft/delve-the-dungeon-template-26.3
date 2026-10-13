@@ -1,6 +1,5 @@
-package com.delvethedungeon;
+package com.delvethedungeon.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -23,8 +22,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-
-import static net.minecraft.world.level.levelgen.structure.Structure.simpleCodec;
 
 public class PlushieBlock extends BaseEntityBlock {
 
