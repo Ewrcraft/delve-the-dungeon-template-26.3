@@ -21,7 +21,7 @@ public class CreativeModTab {
 
     public static final CreativeModeTab DELVE_INTO_CREATIVE = FabricCreativeModeTab.builder()
             .icon(() -> new ItemStack(ModItems.SAC_DAGGER))
-            .title(Component.translatable("DelveIntoCreative.delve_into_creative"))
+            .title(Component.translatable("delveIntoCreative.delve_into_creative"))
             .displayItems((params, output) -> {
                 output.accept(ModItems.SAC_DAGGER);
                 output.accept(ModBlocks.CHEESE);

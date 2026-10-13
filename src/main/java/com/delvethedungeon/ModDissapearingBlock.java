@@ -133,20 +133,21 @@ public class ModDissapearingBlock extends BaseEntityBlock {
 
     public static boolean hasLineOfSightOfBlock(Level level, BlockPos pos) {
         List<? extends Player> players = level.players();
-        // pos.getX(), pos.getY(), pos.getZ()
+        boolean isSeen = false;
         for (Player target : players) {
             double dX = Math.abs(target.getX() - pos.getX());
             double dY = Math.abs(target.getY() - pos.getY());
             double dZ = Math.abs(target.getZ() - pos.getZ());
             double dTotal = dX + dY + dZ;
             if (dTotal < 15)
-            if (target != null) {
-                return hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
-            } else {
-                return false;
+            if (target != null && !target.isSpectator()) {
+                isSeen = hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
+                if (isSeen) {
+                    break;
+                }
             }
         }
-        return false;
+        return isSeen;
     }
 
     public static Vec3 genVecEntityToBlock(Entity a, BlockPos b) {

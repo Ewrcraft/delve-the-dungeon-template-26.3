@@ -1,9 +1,13 @@
 {
   "item.delve-the-dungeon.sac_dagger" : "Sacraficial Dagger",
   "item.example-mod.counter.info": "Hmph",
+  "item.example-mod.counter.info-2": "Nice pockets you got there",
+  "item.example-mod.counter.info-3": "Hey, its me, its ivyrity",
   "block.delve-the-dungeon.certain_someone" : "Certain someone",
+  "block.delve-the-dungeon.uncertain_block" : "Uncertain block",
   "block.delve-the-dungeon.certain_someone_part2" : "Certainly not that someone",
   "block.delve-the-dungeon.uncertain_someone" : "Uncertainly someone",
   "block.delve-the-dungeon.definitively_someone" : "Definitively someone",
-  "block.delve-the-dungeon.cheese" : "Cheese."
+  "block.delve-the-dungeon.cheese" : "Cheese.",
+  "delveIntoCreative.delve_into_creative" : "Delve The Dungeon - Made with Trust Issues"
 }
