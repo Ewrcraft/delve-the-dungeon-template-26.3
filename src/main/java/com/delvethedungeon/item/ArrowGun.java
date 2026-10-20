@@ -32,7 +32,7 @@ public class ArrowGun extends Item implements ProjectileItem {
         System.out.println("Ran the use");
         if (level instanceof ServerLevel serverLevel) {
             System.out.println("Ran this thingy");
-            Projectile.spawnProjectileFromRotation((source, l, itemStack) -> new Arrow(level, player.position().x(), player.getEyePosition().y(), player.position().z(), stack, null), serverLevel, stack, player, 0.0F, 1.5F, 0.0F);
+            Projectile.spawnProjectileFromRotation((source, l, itemStack) -> new Arrow(level, player.position().x(), player.getEyePosition().y(), player.position().z(), stack, null), serverLevel, stack, player, 0.0F, 70F, 0.0F);
         }
 
         level.playSound((Entity)null, player.getX(), player.getY(), player.getZ(), SoundEvents.WIND_CHARGE_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));

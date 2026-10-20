@@ -74,18 +74,6 @@ public class DelveTheDungeon implements ModInitializer {
 				return 1;
 			}));
 		});
-
-		UseItemCallback.EVENT.register((player, world, hand) -> {
-			System.out.println("Right clicked");
-			System.out.println(player.getInventory().getItem(hand.asEquipmentSlot().getId()).getItem());
-			if (player.getItemInHand(hand).getItem().equals(ModItems.ARROW_GUN)) {
-				System.out.println("Ran SUCCESS branch");
-				player.getItemInHand(hand).getItem().use(world, player, hand);
-				return InteractionResult.SUCCESS;
-			} else {
-				System.out.println("Ran PASS branch");
-				return InteractionResult.PASS;
-			}});
 	}
 
 	private static int executeCommandWithArg(CommandContext<CommandSourceStack> context) {
