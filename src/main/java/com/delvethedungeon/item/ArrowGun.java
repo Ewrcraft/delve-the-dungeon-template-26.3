@@ -26,15 +26,17 @@ public class ArrowGun extends Item implements ProjectileItem {
         super(properties);
     }
 
+    @Override
     public InteractionResult use(final Level level, final Player player, final InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        System.out.println("Ran the use");
         if (level instanceof ServerLevel serverLevel) {
-            Projectile.spawnProjectileFromRotation((source, l, itemStack) -> new WindCharge(player, level, player.position().x(), player.getEyePosition().y(), player.position().z()), serverLevel, stack, player, 0.0F, 1.5F, 1.0F);
+            System.out.println("Ran this thingy");
+            Projectile.spawnProjectileFromRotation((source, l, itemStack) -> new Arrow(level, player.position().x(), player.getEyePosition().y(), player.position().z(), stack, null), serverLevel, stack, player, 0.0F, 1.5F, 0.0F);
         }
 
         level.playSound((Entity)null, player.getX(), player.getY(), player.getZ(), SoundEvents.WIND_CHARGE_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
         player.awardStat(Stats.ITEM_USED.get(this));
-        stack.consume(1, player);
         return InteractionResult.SUCCESS;
     }
 

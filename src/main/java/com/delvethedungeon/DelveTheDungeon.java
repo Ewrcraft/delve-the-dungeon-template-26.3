@@ -16,6 +16,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
+import net.minecraft.world.InteractionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,13 +75,17 @@ public class DelveTheDungeon implements ModInitializer {
 			}));
 		});
 
-//		UseItemCallback.EVENT.register((player, world, hand) -> {
-//			if (player.getInventory().getItem(hand.asEquipmentSlot().getId()).getItem().equals(ModItems.ARROW_GUN)) {
-//				ArrowGun.use
-//				return ActionResult.SUCCESS;
-//			} else {
-//				return ActionResult.PASS;
-//			});
+		UseItemCallback.EVENT.register((player, world, hand) -> {
+			System.out.println("Right clicked");
+			System.out.println(player.getInventory().getItem(hand.asEquipmentSlot().getId()).getItem());
+			if (player.getItemInHand(hand).getItem().equals(ModItems.ARROW_GUN)) {
+				System.out.println("Ran SUCCESS branch");
+				player.getItemInHand(hand).getItem().use(world, player, hand);
+				return InteractionResult.SUCCESS;
+			} else {
+				System.out.println("Ran PASS branch");
+				return InteractionResult.PASS;
+			}});
 	}
 
 	private static int executeCommandWithArg(CommandContext<CommandSourceStack> context) {
