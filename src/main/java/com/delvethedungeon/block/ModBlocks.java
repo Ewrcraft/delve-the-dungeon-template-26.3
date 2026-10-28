@@ -49,10 +49,20 @@ public class ModBlocks {
             new ComponentWithTooltip("item.example-mod.counter.info-3", "f")
     );
 
-    public static final Block UNCERTAIN_BLOCK = register(
+    public static final Block DEFINITELY_BLOCK = registerWithComponent(
+            ModBlockItemIds.DEFINITELY_BLOCK,
+            ModChangingBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.CINNABAR),
+            ModComponents.COMPONENT_WITH_TOOLTIP,
+            new ComponentWithTooltip("item.example-mod.counter.info-4", "f")
+    );
+
+    public static final Block UNCERTAIN_BLOCK = registerWithComponent(
             ModBlockItemIds.UNCERTAIN_BLOCK,
             ModDissapearingBlock::new,
-            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
+            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST),
+            ModComponents.COMPONENT_WITH_TOOLTIP,
+            new ComponentWithTooltip("item.example-mod.counter.info-5", "f")
     );
 
     private static Block register(ResourceKey<Block> id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties) {

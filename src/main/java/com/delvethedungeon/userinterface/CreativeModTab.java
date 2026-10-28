@@ -29,6 +29,7 @@ public class CreativeModTab {
                 output.accept(ModBlocks.CHEESE);
                 output.accept(ModBlocks.CERTAIN_SOMEONE);
                 output.accept(ModBlocks.UNCERTAIN_BLOCK);
+                output.accept(ModBlocks.DEFINITELY_BLOCK);
                 output.accept(ModBlocks.CERTAIN_SOMEONE_PART2);
                 output.accept(ModBlocks.DEFINITIVELY_SOMEONE);
                 output.accept(ModBlocks.UNCERTAIN_SOMEONE);
