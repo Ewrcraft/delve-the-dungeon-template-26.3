@@ -1,30 +1,18 @@
 package com.delvethedungeon.item;
-import com.ibm.icu.impl.coll.CollationRoot;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Position;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
-import net.minecraft.world.entity.projectile.arrow.Arrow;
-import net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.WindCharge;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
-
 import java.util.List;
 
 import static net.minecraft.world.item.Items.WIND_CHARGE;
@@ -53,6 +41,13 @@ public class ArrowGun extends BowItem {
         List<ItemStack> firedProjectiles = draw(itemStack, projectile, player);
         if (level instanceof ServerLevel serverLevel) {
             System.out.println("Ran this thingy");
+            serverLevel.sendParticles(
+                    ParticleTypes.GUST_EMITTER_SMALL,
+                    player.getX(), player.getEyeY(), player.getZ(),
+                    1,
+                    0.1, 0.1, 0.1,
+                    0.3
+            );
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.WIND_CHARGE_BURST, SoundSource.NEUTRAL, 1F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.NEUTRAL, 1F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
             this.shoot(serverLevel, player, player.getUsedItemHand(), projectile, firedProjectiles, 30F, 1.0F, 30F == 30F, (LivingEntity)null);
