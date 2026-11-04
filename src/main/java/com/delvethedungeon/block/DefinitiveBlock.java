@@ -35,6 +35,11 @@ public class DefinitiveBlock extends BaseEntityBlock {
             definitiveBlockEntity.setItem(0, player.getItemInHand(hand).copy());
             player.getItemInHand(hand).setCount(0);
         }
+        else {
+            ItemStack nothing = player.getItemInHand(hand);
+            player.setItemInHand(hand, definitiveBlockEntity.getItem(0));
+            definitiveBlockEntity.setItem(0, nothing);
+        }
 
         return InteractionResult.SUCCESS;
     }

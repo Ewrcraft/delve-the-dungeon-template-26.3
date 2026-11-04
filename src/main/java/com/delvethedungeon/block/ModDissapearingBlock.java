@@ -1,4 +1,6 @@
 package com.delvethedungeon.block;
+import com.delvethedungeon.block.baseblock.BaseQuantumBlock;
+import com.delvethedungeon.block.baseblock.QuantumBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -27,9 +29,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ModDissapearingBlock extends BaseEntityBlock {
-    public static final BooleanProperty EXISTENCE = BooleanProperty.create("existence");
-    public static final EnumProperty<Direction> FACING;
+public class ModDissapearingBlock extends BaseQuantumBlock {
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     private static final VoxelShape FALLING_COLLISION_SHAPE = Shapes.box((double)0.0F, (double)0.0F, (double)0.0F, (double)1.0F, (double)0.9F, (double)1.0F);
 
 
@@ -38,114 +39,17 @@ public class ModDissapearingBlock extends BaseEntityBlock {
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(FACING, Direction.NORTH).setValue(EXISTENCE, true));
     }
 
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ModDissapearingBlockEntity(pos, state);
-    }
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(new Property[]{EXISTENCE, FACING});
     }
 
     public BlockState getStateForPlacement(final BlockPlaceContext context) {
-        return (BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return (BlockState) this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
-
-    protected VoxelShape getCollisionShape(final BlockState state, final BlockGetter level, final BlockPos pos, final CollisionContext context) {
-        if (!context.isPlacement() && context instanceof EntityCollisionContext entityCollisionContext) {
-            Entity entity = entityCollisionContext.getEntity();
-            if (entity != null) {
-                boolean exists = state.getValue(EXISTENCE);
-                if (exists) {
-                    return super.getCollisionShape(state, level, pos, context);
-                }
-            }
-        }
-        return Shapes.empty();
-    }
-
-    static {
-        FACING = HorizontalDirectionalBlock.FACING;
-    }
-
 
     public static boolean IsBlock(BlockState blockState) {
         return blockState.getBlock() == ModBlocks.UNCERTAIN_BLOCK;
     }
-
-    public static boolean hasLineOfSightOfBlock(final Entity target, final ClipContext.Block blockCollidingContext, final ClipContext.Fluid fluidCollidingContext, BlockPos pos) {
-        if (target.level() != target.level()) {
-            return false;
-        } else {
-            Vec3 from = new Vec3(target.getX(), target.getEyeY(), target.getZ());
-            Vec3 to = new Vec3(pos.getX(), pos.getY(), pos.getZ());
-            Vec3 directionToBlock = genVecEntityToBlock(target, pos);
-            Vec3 currentCameraDirection = target.getHeadLookAngle();
-            if (directionToBlock.distanceTo(currentCameraDirection) < 1.5) {
-                    return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.UNCERTAIN_BLOCK_ENTITY, ModDissapearingBlock::tick);
-    }
-
-    public static void tick(Level level, BlockPos blockPos, BlockState blockState, ModDissapearingBlockEntity entity) {
-        entity.ticksSinceLast += 1;
-        if (entity.ticksSinceLast < 160) {
-            boolean playerSees = hasLineOfSightOfBlock(level, blockPos);
-            if (playerSees) {
-                level.setBlockAndUpdate(blockPos, blockState.setValue(EXISTENCE, true));
-            } else {
-                level.setBlockAndUpdate(blockPos, blockState.setValue(EXISTENCE, false));
-            }
-            hasLineOfSightOfBlock(level, blockPos);
-            entity.ticksSinceLast = 0;
-        }
-    }
-
-    public static boolean hasLineOfSightOfBlock(Level level, BlockPos pos) {
-        List<? extends Player> players = level.players();
-        boolean isSeen = false;
-        for (Player target : players) {
-            double dX = Math.abs(target.getX() - pos.getX());
-            double dY = Math.abs(target.getY() - pos.getY());
-            double dZ = Math.abs(target.getZ() - pos.getZ());
-            double dTotal = dX + dY + dZ;
-            if (dTotal < 15)
-            if (target != null && !target.isSpectator()) {
-                isSeen = hasLineOfSightOfBlock(target, net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, pos);
-                if (isSeen) {
-                    break;
-                }
-            }
-        }
-        return isSeen;
-    }
-
-    public static Vec3 genVecEntityToBlock(Entity a, BlockPos b) {
-        double dX = a.getX() - b.getX()-0.5;
-        double dY = a.getY() - b.getY()+1;
-        double dZ = a.getZ() - b.getZ()-0.5;
-        double yaw = Math.atan2(dZ, dX);
-        double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-        double x = Math.sin(pitch) * Math.cos(yaw);
-        double y = Math.sin(pitch) * Math.sin(yaw);
-        double z = Math.cos(pitch);
-
-        Vec3 vector = new Vec3(x, z, y);
-        vector = vector.normalize();
-        return vector;
-    }
-
-
 
 }
