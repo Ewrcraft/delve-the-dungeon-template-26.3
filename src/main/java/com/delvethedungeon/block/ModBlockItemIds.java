@@ -12,6 +12,7 @@ public class ModBlockItemIds {
     public static final BlockItemId DEFINITIVELY_SOMEONE = create("definitively_someone");
     public static final BlockItemId CHEESE = create("cheese");
     public static final BlockItemId UNCERTAIN_BLOCK = create("uncertain_block");
+    public static final BlockItemId DEFINITELY_BLOCK = create("definitely_block");
     public static final BlockItemId DEFINITIVE_BLOCK = create("definitive_block");
 
     private static BlockItemId create(String name) {

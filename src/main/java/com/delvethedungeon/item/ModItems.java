@@ -36,7 +36,7 @@ public class ModItems {
     );
 
     public static final Item SAC_DAGGER = register(ModItemIds.SAC_DAGGER, Item::new, new Item.Properties().sword(GUIDITE_TOOL_MATERIAL, 1f, 1f));
-    public static final Item ARROW_GUN = registerWithComponent(ModItemIds.ARROW_GUN, ArrowGun::new, new ArrowGun.Properties().useCooldown(0.5f), ModComponents.COMPONENT_WITH_TOOLTIP, new ComponentWithTooltip("item.example-mod.arrowgun.tooltip", ""));
+    public static final Item ARROW_GUN = register(ModItemIds.ARROW_GUN, ArrowGun::new, new ArrowGun.Properties().useCooldown(0.5f).durability(700));
 
     public static Item register(ResourceKey<Item> itemKey, Function<Item.Properties, Item> itemFactory, Item.Properties settings) {
         // Create the item instance.
