@@ -52,6 +52,12 @@ public class ModBlocks {
     public static final Block UNCERTAIN_BLOCK = register(
             ModBlockItemIds.UNCERTAIN_BLOCK,
             ModDissapearingBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST).destroyTime(-1)
+    );
+
+    public static final Block DEFINITIVE_BLOCK = register(
+            ModBlockItemIds.DEFINITIVE_BLOCK,
+            DefinitiveBlock::new,
             BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
     );
 

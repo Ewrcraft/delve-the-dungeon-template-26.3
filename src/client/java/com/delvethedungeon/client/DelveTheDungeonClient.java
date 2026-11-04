@@ -42,18 +42,18 @@ public class DelveTheDungeonClient implements ClientModInitializer {
 		// Draw a square with the lerped color.
 		// x1, x2, y1, y2, color
 
-		Screen screen = new Screen(Component.literal("Complimented a certain someone %s time(-s)".formatted(DelveTheDungeon.compliments))) {
-			@Override
-			protected void init() {
-				super.init();
-			}
-		};
+//		Screen screen = new Screen(Component.literal("Complimented a certain someone %s time(-s)".formatted(DelveTheDungeon.compliments))) {
+//			@Override
+//			protected void init() {
+//				super.init();
+//			}
+//		};
 
 		if (!DelveTheDungeon.isAwesomeMode) {
-			graphics.text(screen.getFont(), Component.literal("Said something into the void %s time(-s)".formatted(DelveTheDungeon.stuff_said)), 10, 200, 0xFFFFFFFF, false);
+			//graphics.text(Minecraft.getInstance().font, Component.literal("Said something into the void %s time(-s)".formatted(DelveTheDungeon.stuff_said)), 10, 200, 0xFFFFFFFF, false);
 		}
 		else {
-			graphics.text(screen.getFont(), Component.literal("Complimented a certain someone %s time(-s)".formatted(DelveTheDungeon.compliments)), 10, 200, ARGB.opaque(0x58009c), false);
+			graphics.text(Minecraft.getInstance().font, Component.literal("Complimented a certain someone %s time(-s)".formatted(DelveTheDungeon.compliments)), 10, 200, ARGB.opaque(0x58009c), false);
 		}
 
 		//graphics.fill(0, 0, 10, 10, lerpedColor);

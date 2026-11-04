@@ -17,6 +17,9 @@ public class ModBlockEntities {
     public static final BlockEntityType<ModDissapearingBlockEntity> UNCERTAIN_BLOCK_ENTITY =
             register("countercool", ModDissapearingBlockEntity::new, ModBlocks.UNCERTAIN_BLOCK);
 
+    public static final BlockEntityType<DefinitiveBlockEntity> DEFINITIVE_BLOCK_ENTITY =
+            register("definitive_container_block_entity", DefinitiveBlockEntity::new, ModBlocks.DEFINITIVE_BLOCK);
+
     private static <T extends BlockEntity> BlockEntityType<T> register(
             String name,
             FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,
