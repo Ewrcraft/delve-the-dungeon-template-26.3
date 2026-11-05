@@ -21,6 +21,9 @@ public class ModBlockEntities {
     public static final BlockEntityType<DefinitiveBlockEntity> DEFINITIVE_BLOCK_ENTITY =
             register("definitive_container_block_entity", DefinitiveBlockEntity::new, ModBlocks.DEFINITIVE_BLOCK);
 
+    public static final BlockEntityType<DefinitiveBlockEntity> CHARISMATIC_BLOCK_ENTITY =
+            register("charismatic_container_block_entity", DefinitiveBlockEntity::new, ModBlocks.CHARISMATIC_BLOCK);
+
     private static <T extends BlockEntity> BlockEntityType<T> register(
             String name,
             FabricBlockEntityTypeBuilder.Factory<? extends T> entityFactory,

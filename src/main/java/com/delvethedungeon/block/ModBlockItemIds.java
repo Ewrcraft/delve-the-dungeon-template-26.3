@@ -14,6 +14,8 @@ public class ModBlockItemIds {
     public static final BlockItemId UNCERTAIN_BLOCK = create("uncertain_block");
     public static final BlockItemId DEFINITELY_BLOCK = create("definitely_block");
     public static final BlockItemId DEFINITIVE_BLOCK = create("definitive_block");
+    public static final BlockItemId CHARISMATIC_BLOCK = create("charismatic_block");
+
 
     private static BlockItemId create(String name) {
         Identifier id = DelveTheDungeon.id(name);

@@ -5,6 +5,7 @@ import com.delvethedungeon.block.ModBlocks;
 import com.delvethedungeon.item.ArrowGun;
 import com.delvethedungeon.item.ModItems;
 import com.delvethedungeon.userinterface.CreativeModTab;
+import com.delvethedungeon.userinterface.ModMenuTypes;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.api.ModInitializer;
@@ -43,6 +44,7 @@ public class DelveTheDungeon implements ModInitializer {
 		ModBlocks.initialize();
 		ModBlockEntities.initialize();
 		ModComponents.initialize();
+		ModMenuTypes.initialize();
 
 		LOGGER.info("Hello Fabric world!");
 

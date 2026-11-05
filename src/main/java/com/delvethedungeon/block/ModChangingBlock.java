@@ -30,7 +30,7 @@ public class ModChangingBlock extends Block {
 
         prime(level, pos);
 
-        return super.playerWillDestroy(level, pos, state.setValue(), player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     public void wasExploded(final ServerLevel level, final BlockPos pos, final Explosion explosion) {

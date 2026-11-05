@@ -71,6 +71,12 @@ public class ModBlocks {
             BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
     );
 
+    public static final Block CHARISMATIC_BLOCK = register(
+            ModBlockItemIds.CHARISMATIC_BLOCK,
+            CharismaticBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
+    );
+
     private static Block register(ResourceKey<Block> id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties) {
         // Create the block instance
         Block block = blockFactory.apply(properties.setId(id));
