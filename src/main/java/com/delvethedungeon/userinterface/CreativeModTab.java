@@ -30,9 +30,12 @@ public class CreativeModTab {
                 output.accept(ModBlocks.CERTAIN_SOMEONE);
                 output.accept(ModBlocks.UNCERTAIN_BLOCK);
                 output.accept(ModBlocks.DEFINITELY_BLOCK);
+                output.accept(ModBlocks.DEFINITIVE_BLOCK);
+                output.accept(ModBlocks.CHARISMATIC_BLOCK);
                 output.accept(ModBlocks.CERTAIN_SOMEONE_PART2);
                 output.accept(ModBlocks.DEFINITIVELY_SOMEONE);
                 output.accept(ModBlocks.UNCERTAIN_SOMEONE);
+
             }).build();
     public static void initialize() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, DELVE_INTO_CREATIVE_KEY, DELVE_INTO_CREATIVE);

@@ -48,7 +48,7 @@ public class CharismaticBlockEntity extends BlockEntity implements ImplementedCo
     @Override
     @NonNull
     public Component getDisplayName() {
-        return Component.translatable("block.example-mod.dirt_chest");
+        return Component.translatable("block.delve-the-dungeon.charismatic_block");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.delvethedungeon.client;
 
 import com.delvethedungeon.DelveTheDungeon;
+import com.delvethedungeon.userinterface.ModMenuTypes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
@@ -8,6 +9,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
@@ -25,6 +27,7 @@ public class DelveTheDungeonClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		// Attach our rendering code to before the chat hud layer. Our layer will render right before the chat. The API will take care of z spacing.
 		HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT, DelveTheDungeon.id("before_chat"), DelveTheDungeonClient::extract);
+		MenuScreens.register(ModMenuTypes.CHARISMATIC_BLOCK_MENU, CharismaticBlockScreen::new);
 	}
 
 	private static void extract(GuiGraphicsExtractor graphics, DeltaTracker tickCounter) {
