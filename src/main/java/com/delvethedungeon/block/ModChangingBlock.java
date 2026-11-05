@@ -1,7 +1,9 @@
 package com.delvethedungeon.block;
 
+import com.delvethedungeon.DelveTheDungeon;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
@@ -9,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.phys.BlockHitResult;
 
 import static net.minecraft.world.level.block.TntBlock.prime;
 
@@ -17,11 +20,17 @@ public class ModChangingBlock extends Block {
         super(properties);
     }
 
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        level.setBlock(pos, level.getBlockState(new BlockPos(pos.getX(),pos.getY()-1,pos.getZ())),1);
+        return super.useWithoutItem(state, level, pos, player, hitResult);
+    }
+
     public BlockState playerWillDestroy(final Level level, final BlockPos pos, final BlockState state, final Player player) {
 
         prime(level, pos);
 
-        return super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state.setValue(), player);
     }
 
     public void wasExploded(final ServerLevel level, final BlockPos pos, final Explosion explosion) {
