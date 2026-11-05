@@ -1,6 +1,7 @@
 package com.delvethedungeon.block;
 
 import com.delvethedungeon.DelveTheDungeon;
+import com.delvethedungeon.block.baseblock.QuantumBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,8 +15,11 @@ public class ModBlockEntities {
     public static final BlockEntityType<PlushieBlockEntity> CERTAIN_SOMEONE_PART2_BLOCK_ENTITY =
             register("counter", PlushieBlockEntity::new, ModBlocks.CERTAIN_SOMEONE_PART2, ModBlocks.UNCERTAIN_SOMEONE, ModBlocks.DEFINITIVELY_SOMEONE);
 
-    public static final BlockEntityType<ModDissapearingBlockEntity> UNCERTAIN_BLOCK_ENTITY =
-            register("countercool", ModDissapearingBlockEntity::new, ModBlocks.UNCERTAIN_BLOCK);
+    public static final BlockEntityType<QuantumBlockEntity> UNCERTAIN_BLOCK_ENTITY =
+            register("countercool", QuantumBlockEntity::new, ModBlocks.UNCERTAIN_BLOCK);
+
+    public static final BlockEntityType<DefinitiveBlockEntity> DEFINITIVE_BLOCK_ENTITY =
+            register("definitive_container_block_entity", DefinitiveBlockEntity::new, ModBlocks.DEFINITIVE_BLOCK);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(
             String name,

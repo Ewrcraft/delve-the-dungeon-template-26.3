@@ -60,9 +60,15 @@ public class ModBlocks {
     public static final Block UNCERTAIN_BLOCK = registerWithComponent(
             ModBlockItemIds.UNCERTAIN_BLOCK,
             ModDissapearingBlock::new,
-            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST),
+            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST).destroyTime(-1),
             ModComponents.COMPONENT_WITH_TOOLTIP,
             new ComponentWithTooltip("item.example-mod.counter.info-5", "f")
+    );
+
+    public static final Block DEFINITIVE_BLOCK = register(
+            ModBlockItemIds.DEFINITIVE_BLOCK,
+            DefinitiveBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
     );
 
     private static Block register(ResourceKey<Block> id, Function<BlockBehaviour.Properties, Block> blockFactory, BlockBehaviour.Properties properties) {

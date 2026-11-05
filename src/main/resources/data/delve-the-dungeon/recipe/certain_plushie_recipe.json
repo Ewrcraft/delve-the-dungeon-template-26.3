@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": false,
+  "category": "misc",
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "key": {
+    "A": "minecraft:white_wool",
+    "B": "minecraft:purple_dye"
+  },
+  "result": {
+    "id": "delve-the-dungeon:certain_someone_part2"
+  }
+}

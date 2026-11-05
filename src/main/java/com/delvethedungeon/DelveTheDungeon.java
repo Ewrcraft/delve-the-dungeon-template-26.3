@@ -50,17 +50,17 @@ public class DelveTheDungeon implements ModInitializer {
 			dispatcher.register(Commands.literal("awesomegirl").executes(context -> {
 				isAwesomeMode = !isAwesomeMode;
 				if (isAwesomeMode) {
-					context.getSource().sendSuccess(() -> Component.literal("Made everything better"), false);
+					context.getSource().sendSuccess(() -> Component.literal("Made everything better, /compliment to increase the counter"), false);
 				}
 				return 1;
 			}));
 		});
 
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			dispatcher.register(Commands.literal("saystuff")
-					.then(Commands.argument("value", StringArgumentType.string())
-							.executes(DelveTheDungeon::executeCommandWithArg)));
-		});
+//		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+//			dispatcher.register(Commands.literal("saystuff")
+//					.then(Commands.argument("value", StringArgumentType.string())
+//							.executes(DelveTheDungeon::executeCommandWithArg)));
+//		});
 
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(Commands.literal("compliment")
@@ -68,25 +68,25 @@ public class DelveTheDungeon implements ModInitializer {
 							.executes(DelveTheDungeon::executeCommandWithArg2)));
 		});
 
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-			dispatcher.register(Commands.literal("testcommand").executes(context -> {
-				context.getSource().sendSuccess(() -> Component.literal("Called test command"), false);
-				return 1;
-			}));
-		});
+//		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+//			dispatcher.register(Commands.literal("testcommand").executes(context -> {
+//				context.getSource().sendSuccess(() -> Component.literal("Called test command"), false);
+//				return 1;
+//			}));
+//		});
 	}
 
 	private static int executeCommandWithArg(CommandContext<CommandSourceStack> context) {
 		String value = StringArgumentType.getString(context, "value");
 		DelveTheDungeon.stuff_said++;
-		context.getSource().sendSuccess(() -> Component.literal("Said %s".formatted(value)), false);
+		//if (isAwesomeMode) {context.getSource().sendSuccess(() -> Component.literal("Said %s".formatted(value)), false);}
 		return 1;
 	}
 
 	private static int executeCommandWithArg2(CommandContext<CommandSourceStack> context) {
 		String value = StringArgumentType.getString(context, "value");
 		DelveTheDungeon.compliments++;
-		context.getSource().sendSuccess(() -> Component.literal("Said to Certain someone %s".formatted(value)), false);
+		if (isAwesomeMode) {context.getSource().sendSuccess(() -> Component.literal("Said to a Certain someone %s".formatted(value)), false);}
 		return 1;
 	}
 
