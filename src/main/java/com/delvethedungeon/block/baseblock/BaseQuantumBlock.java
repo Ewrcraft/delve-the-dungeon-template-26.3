@@ -70,11 +70,8 @@ public class BaseQuantumBlock extends BaseEntityBlock {
     protected VoxelShape getCollisionShape(final BlockState state, final BlockGetter level, final BlockPos pos, final CollisionContext context) {
         if (!context.isPlacement() && context instanceof EntityCollisionContext entityCollisionContext) {
             Entity entity = entityCollisionContext.getEntity();
-            if (entity != null) {
-                boolean exists = state.getValue(EXISTENCE);
-                if (exists) {
-                    return getCollision(state, level, pos, context);
-                }
+            if (entity != null && state.getValue(EXISTENCE)) {
+                return getCollision(state, level, pos, context);
             }
         }
         return Shapes.empty();
@@ -84,8 +81,6 @@ public class BaseQuantumBlock extends BaseEntityBlock {
         if (target.level() != target.level()) {
             return false;
         } else {
-            Vec3 from = new Vec3(target.getX(), target.getEyeY(), target.getZ());
-            Vec3 to = new Vec3(pos.getX(), pos.getY(), pos.getZ());
             Vec3 directionToBlock = genVecEntityToBlock(target, pos);
             Vec3 currentCameraDirection = target.getHeadLookAngle();
             if (directionToBlock.distanceTo(currentCameraDirection) < 1.5) {

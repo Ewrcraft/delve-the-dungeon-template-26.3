@@ -37,10 +37,8 @@ public class ArrowGun extends BowItem {
         if (projectile.isEmpty() || windchargeitem == null && !player.hasInfiniteMaterials()) {
             return InteractionResult.FAIL;
         }
-        System.out.println("Ran the use");
         List<ItemStack> firedProjectiles = draw(itemStack, projectile, player);
         if (level instanceof ServerLevel serverLevel) {
-            System.out.println("Ran this thingy");
             serverLevel.sendParticles(
                     ParticleTypes.GUST_EMITTER_SMALL,
                     player.getX(), player.getEyeY(), player.getZ(),
