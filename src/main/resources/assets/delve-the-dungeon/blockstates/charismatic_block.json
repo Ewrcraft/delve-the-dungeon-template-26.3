@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "open=false": {
       "model": "delve-the-dungeon:block/charismatic_block"
+    },
+    "open=true": {
+      "model": "delve-the-dungeon:block/charismatic_block_open"
     }
   }
 }

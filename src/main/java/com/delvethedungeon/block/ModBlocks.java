@@ -49,14 +49,6 @@ public class ModBlocks {
             new ComponentWithTooltip("item.example-mod.counter.info-3", "f")
     );
 
-    public static final Block DEFINITELY_BLOCK = registerWithComponent(
-            ModBlockItemIds.DEFINITELY_BLOCK,
-            ModChangingBlock::new,
-            BlockBehaviour.Properties.of().sound(SoundType.CINNABAR),
-            ModComponents.COMPONENT_WITH_TOOLTIP,
-            new ComponentWithTooltip("item.example-mod.counter.info-4", "f")
-    );
-
     public static final Block UNCERTAIN_BLOCK = registerWithComponent(
             ModBlockItemIds.UNCERTAIN_BLOCK,
             ModDissapearingBlock::new,
@@ -74,6 +66,12 @@ public class ModBlocks {
     public static final Block CHARISMATIC_BLOCK = register(
             ModBlockItemIds.CHARISMATIC_BLOCK,
             CharismaticBlock::new,
+            BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
+    );
+
+    public static final Block NOT_A_BLOCK = register(
+            ModBlockItemIds.NOT_A_BLOCK,
+            NotABlock::new,
             BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)
     );
 

@@ -106,4 +106,7 @@ public class CharismaticBlockMenu extends AbstractContainerMenu {
         super.removed(player);
         this.container.stopOpen(player);
     }
+
+    public Container getContainer() {return container;}
+
 }
