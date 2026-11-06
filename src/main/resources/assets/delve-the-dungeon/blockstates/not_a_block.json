@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "integrity=0": {
+      "model": "delve-the-dungeon:block/not_a_block_1"
+    },
+    "integrity=1": {
+      "model": "delve-the-dungeon:block/not_a_block_2"
+    },
+    "integrity=2": {
+      "model": "delve-the-dungeon:block/not_a_block_3"
+    }
+  }
+}
