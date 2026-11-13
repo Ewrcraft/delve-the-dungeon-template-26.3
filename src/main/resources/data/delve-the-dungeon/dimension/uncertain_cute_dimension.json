@@ -1,0 +1,12 @@
+{
+  "generator": {
+    "type": "delve-the-dungeon:UncertainChunkGenerator",
+    "settings": {
+      "biome": "delve-the-dungeon:uncertain_cute_biome",
+      "lakes": false,
+      "features": false,
+      "layers": []
+    }
+  },
+  "type": "delve-the-dungeon:uncertain_cute_dimension"
+}
