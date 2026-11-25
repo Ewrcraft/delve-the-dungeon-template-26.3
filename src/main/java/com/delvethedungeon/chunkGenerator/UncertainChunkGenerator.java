@@ -148,4 +148,5 @@ public final class UncertainChunkGenerator extends ChunkGenerator
     public void addDebugScreenInfo(List<String> result, RandomState randomState, BlockPos feetPos, SamplerContext samplerContext) {
 
     }
+
 }
